@@ -1,0 +1,15 @@
+{
+  "name": "timelapse-amqp",
+  "version": "0.1.0",
+  "description": "Simple AMQP testing library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "me@jfroffice.me",
+  "license": "MIT",
+  "dependencies": {
+    "amqplib": "^0.5.1",
+    "dotenv": "^4.0.0"
+  }
+}
