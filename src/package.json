@@ -1,0 +1,11 @@
+{
+    "name": "timelapse-amqp",
+    "version": "0.1.0",
+    "main": "index.js",
+    "repository": {},
+    "license": "MIT",
+    "dependencies": {
+        "nodemailer": "^2.7.2",
+        "nodemailer-sparkpost-transport": "^2.0.0"
+    }
+}
