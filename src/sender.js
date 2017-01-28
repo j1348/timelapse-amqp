@@ -20,7 +20,7 @@ function start() {
 
         whenConnected();
       })
-      .catch(() => {
+      .catch((err) => {
         console.error("[AMQP]", err.message);
         return setTimeout(start, 1000);
       });

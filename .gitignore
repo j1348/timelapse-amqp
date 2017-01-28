@@ -3,6 +3,13 @@ npm-debug.log
 selenium-debug.log
 .DS_Store
 .env
-fix-commit.sh
 dist/
 
+.jshintignore
+.jshintrc
+fix-commit.sh
+nightwatch
+nightwatch/selenium.jar
+nightwatch/chromedriver
+reports
+screenshots
