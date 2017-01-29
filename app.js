@@ -1,5 +1,5 @@
 require('dotenv').config();
-const mailer = require("./mailer");
+const mailer = require("./src/mailer");
 const amqp = require('amqplib');
 let amqpConn = null;
 
@@ -23,7 +23,6 @@ function start() {
 }
 
 function whenConnected() {
-    console.log('whenConnected');
     worker('subscribe');
 }
 
@@ -62,7 +61,9 @@ function worker(queueName) {
         }).then(function() {
             ch.prefetch(1);
         }).then(function() {
-            ch.consume(queueName, doWork, { noAck: false });
+            ch.consume(queueName, doWork, {
+                noAck: false
+            });
             console.log(" [*] Waiting for messages. To exit press CTRL+C");
         });
     });

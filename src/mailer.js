@@ -9,7 +9,6 @@ exports.send = function(data) {
             open_tracking: true,
             click_tracking: true
         },
-        campaign_id: "timelapse_subscribe",
         content: {
             template_id: data.template_id
         },
