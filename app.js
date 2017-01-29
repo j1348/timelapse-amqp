@@ -1,4 +1,5 @@
 require('dotenv').config();
+const jwt = require('jsonwebtoken');
 const mailer = require("./src/mailer");
 const amqp = require('amqplib');
 let amqpConn = null;
@@ -22,6 +23,26 @@ function start() {
     });
 }
 
+function processData(body) {
+    return {
+        from: 'Timelapse <me@jfroffice.me>',
+        to: body.email,
+        template_id: "my-nice-template",
+        substitution_data: {
+            subject: 'a simple subject',
+            username: body.username,
+            password: body.password,
+            verifyURL: process.env.API_URL + body.verifyURL
+        },
+        recipients: [{
+            address: {
+                email: body.email,
+                name: body.username
+            }
+        }]
+    };
+}
+
 function whenConnected() {
     worker('subscribe');
 }
@@ -30,19 +51,7 @@ function worker(queueName) {
     return amqpConn.createChannel().then(function(ch) {
         function doWork(msg) {
             const body = JSON.parse(msg.content.toString());
-            const data = {
-                from: 'Timelapse <me@jfroffice.me>',
-                to: body.email,
-                template_id: "my-nice-template",
-                substitution_data: body.substitution_data,
-                recipients: [{
-                    address: {
-                        email: body.email,
-                        name: body.username
-                    }
-                }]
-            };
-            console.log(data);
+            const data = processData(body);
 
             mailer.send(data)
                 .then(function(response) {
@@ -51,8 +60,9 @@ function worker(queueName) {
                     ch.ack(msg);
                 })
                 .catch(function(err) {
-                    console.log('mailer.send(..).catch');
-                    console.log(err);
+                    console.log('failed to deliver email to ' + body.email);
+                    /*console.log(err);*/
+                    ch.nack(msg, false, false);
                 });
         }
 

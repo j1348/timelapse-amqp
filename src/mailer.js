@@ -7,8 +7,10 @@ exports.send = function(data) {
         sparkPostApiKey: process.env.SPARKPOST_API_KEY,
         options: {
             open_tracking: true,
-            click_tracking: true
+            click_tracking: true,
+            transactional: true
         },
+        campaign_id: 'my_campaign_id',
         content: {
             template_id: data.template_id
         },
