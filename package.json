@@ -2,9 +2,13 @@
   "name": "timelapse-amqp",
   "version": "0.1.0",
   "description": "Simple AMQP testing library",
-  "main": "index.js",
+  "main": "app.js",
+  "engines": {
+    "node": "6.9.2",
+    "npm": "3.10.9"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "me@jfroffice.me",
   "license": "MIT",
